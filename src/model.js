@@ -29,14 +29,16 @@ class Model {
 
     async initModel() {
         this.database = await this.getDatabase();
-        this.model = this.database[this.modelName]
-            ? this.database[this.modelName]
-            : {
-                'totalrows': 0,
-                'autoinc': 1,
-                'rows': {}
-            };
-        this.database[this.modelName] = this.database[this.modelName] || this.model;
+        if (!this.model) {
+            this.model = this.database[this.modelName]
+                ? this.database[this.modelName]
+                : {
+                    'totalrows': 0,
+                    'autoinc': 1,
+                    'rows': {}
+                };
+        }
+        this.database[this.modelName] = this.model;
     }
 
     //destroy
